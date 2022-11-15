@@ -35,6 +35,6 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: rkotikalapudi/neuro-tools:latest, rkotikalapudi/neuro-tools:${{ steps.nodejs.outputs.NODE_VERSION }}
+        tags: rkotikalapudi/neuro_tools:latest, rkotikalapudi/neuro_tools:${{ steps.nodejs.outputs.NODE_VERSION }}
         
         
