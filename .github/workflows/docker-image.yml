@@ -1,0 +1,40 @@
+name: Docker image for mrtrix3-based DTI tractography
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches: [ "master" ]
+
+
+jobs:
+
+  build:
+  
+    name: build container
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check git repo
+      uses: actions/checkout@v3
+      
+    - name: version
+      run: >-
+        echo "::set-output name=VERSION::$(
+        cat version
+        )"
+    - name: login to dockerhub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: Build the Docker image
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: rkotikalapudi/neuro-tools:latest, rkotikalapudi/neuro-tools:${{ steps.nodejs.outputs.NODE_VERSION }}
+        
+        
